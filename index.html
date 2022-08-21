@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/script.js" defer></script>
 </head>
+
 <body>
-    <div class="display">0</div>
-    
-    <button class="numButton">0</button>
-    <button class="numButton">9</button>
-    <button class="numButton">8</button>
-    <button class="numButton">7</button>
-    <button class="numButton">6</button>
-    <button class="numButton">5</button>
-    <button class="numButton">4</button>
-    <button class="numButton">3</button>
-    <button class="numButton">2</button>
-    <button class="numButton">1</button>
-    <button class="numButton">.</button>
+    <div class="container">
+        <div class='displayBar'>
+            <div class="display">0</div>
+        </div>
 
-    <button class="numButton">+</button>
-    <button class="numButton">-</button>
-    <button class="numButton">*</button>
-    <button class="numButton">/</button>
-    <button class="numButton">%</button>
-    <button class="numButton">=</button>
-    <button class="numButton">AC</button>
-    <button class="numButton">Del</button>
-    <button class="numButton">+/-</button>
-    
+        <div class="buttons">
+            <div class="row row1">
+                <button class="numButton acButton">AC</button>
+                <button class="numButton delButton">&#9654;</button>
+                <button class="numButton">+/-</button>
+                <button class="numButton">%</button>
 
-    
-    
+            </div>
+
+            <div class="row row2">
+                <button class="numButton number">7</button>
+                <button class="numButton number">8</button>
+                <button class="numButton number">9</button>
+                <button class="numButton operation">/</button>
+
+            </div>
+
+            <div class="row row3">
+                <button class="numButton number">4</button>
+                <button class="numButton number">5</button>
+                <button class="numButton number">6</button>
+                <button class="numButton operation">*</button>
+
+            </div>
+
+            <div class="row row4">
+                <button class="numButton number">1</button>
+                <button class="numButton number">2</button>
+                <button class="numButton number">3</button>
+                <button class="numButton operation">-</button>
+
+            </div>
+
+            <div class="row row5">
+                <button class="numButton num0">0</button>
+                <button class="numButton dot">.</button>
+                <button class="numButton">=</button>
+                <button class="numButton operation">+</button>
+            </div>
+
+
+        </div>
+    </div>
 </body>
+
 </html>
