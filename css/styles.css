@@ -2,11 +2,12 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    border: 0;
 }
 
 body {
     height: 100vh;
-    background-color: #06283D;
+    background-color: #222831;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,9 +17,9 @@ body {
 .container {
     width: 450px;
     height: 600px;
-    padding:5px;
+ 
     border-radius: 15px 15px 0 0;
-    background-color: gray;
+    background-color: #1d2327;
     display: flex;
     flex-direction: column;
 
@@ -37,7 +38,7 @@ body {
 }
 
 .display {
-    font-size: 77px;
+    font-size: 72px;
     font-family: 'Roboto', sans-serif;
     align-self: flex-end;
 
@@ -45,6 +46,8 @@ body {
 
 .buttons {
     height: 490px;
+    border-radius: 10px;
+    background-color: #2C3333;
     display: flex;
     flex-direction: column;
 
@@ -60,6 +63,9 @@ body {
     flex: 1;
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
+    margin:5px;
+    border-radius: 5px;
+    background-color: #595260;
     
 }
 

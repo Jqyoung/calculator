@@ -8,6 +8,12 @@ let number = ''
 let accumulator
 let operant = ''
 let flag = true
+let regex = /[^0-9]/g
+let keys = {
+    numberKey: /[0-9]/g,
+    dotKey: '.',
+    plus: '+'
+}
 
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
@@ -17,123 +23,132 @@ numButtons.forEach((button) => {
             input = button.textContent
         }
 
-        if (input != '+' && input != '-' && input != '*' && input != '/' && input != '=' && input != 'AC' && input != 'Del' && input != '%' && input != '+/-' && input != '.') {
-            if (flag == false) {
-                number = ''
-            }
-            if (number.length >= 9 || (display.textContent == '0' && input == '0')) {
-                return
-            }
-            number += button.textContent
-            displayResult(number)
-            //remove arithmatic operation button's background color
-            removeBackgroundColor()
+        presseKeysButtons(e, button)
 
-        } else if ((input == '+' || input == '-' || input == '*' || input == '/') && number != '') {
-            //add background color to arithmatic operation buttons to indicate it is being selected
-            button.classList.add("color-change")
+        // if (input != '+' && input != '-' && input != '*' && input != '/' && input != '=' && input != 'AC' && input != 'Del' && input != '%' && input != '+/-' && input != '.') {
+        //     if (flag == false) {
+        //         number = ''
+        //     }
+        //     if (number.length >= 9 || (display.textContent == '0' && input == '0')) {
+        //         return
+        //     }
+        //     number += button.textContent
+        //     displayResult(number)
+        //     //remove arithmatic operation button's background color
+        //     removeBackgroundColor()
 
-            if (accumulator != undefined) {
-                accumulator = operate(operant, accumulator, number)
-                console.log('im calculating')
-                displayResult(accumulator)
+        // } else if ((input == '+' || input == '-' || input == '*' || input == '/') && number != '') {
+        //     //add background color to arithmatic operation buttons to indicate it is being selected
+        //     button.classList.add("color-change")
 
-            } else {
-                accumulator = number
-                console.log('im acc=number')
-            }
-            operant = input
-            number = ''
-            flag = true
+        //     if (accumulator != undefined) {
+        //         accumulator = operate(operant, accumulator, number)
+        //         console.log('im calculating')
+        //         displayResult(accumulator)
 
-        } else if (input == '=' && number != '' && operant != '' && accumulator != undefined) {
-            number = operate(operant, accumulator, number)
-            // number = number.toString()
-            displayResult(number)
-            accumulator = undefined
-            flag = false
+        //     } else {
+        //         accumulator = number
+        //         console.log('im acc=number')
+        //     }
+        //     operant = input
+        //     number = ''
+        //     flag = true
 
-        } else if (input == 'AC') {
-            number = ''
-            operant = ''
-            accumulator = undefined
-            displayResult('0')
-            flag = true
-            removeBackgroundColor()
+        // } else if (input == '=' && number != '' && operant != '' && accumulator != undefined) {
+        //     number = operate(operant, accumulator, number)
+        //     // number = number.toString()
+        //     displayResult(number)
+        //     accumulator = undefined
+        //     flag = false
 
-        } else if (input == 'Del') {
-            if (number == 'ERROR' || accumulator == 'ERROR') {
-                number = ''
-                operant = ''
-                accumulator = undefined
-                displayResult('0')
-            } else if (number == '' && operant != '' && operant != '=') {
-                operant = ''
-                number = accumulator
-                accumulator = undefined
-                //remove arithmatic operation button's background color
-                removeBackgroundColor()
-            } else if (typeof number == 'string' && number.includes('e') == false) {
-                if (number[number.length - 2] == '.') {
-                    number = number.slice(0, number.length - 2)
-                } else {
-                    number = number.slice(0, number.length - 1)
-                }
+        // } else if (input == 'AC') {
+        //     number = ''
+        //     operant = ''
+        //     accumulator = undefined
+        //     displayResult('0')
+        //     flag = true
+        //     removeBackgroundColor()
 
-                displayResult(number)
-            }
+        // } else if (input == 'Del') {
+        //     if (number == 'ERROR' || accumulator == 'ERROR') {
+        //         number = ''
+        //         operant = ''
+        //         accumulator = undefined
+        //         displayResult('0')
+        //     } else if (number == '' && operant != '' && operant != '=') {
+        //         operant = ''
+        //         number = accumulator
+        //         accumulator = undefined
+        //         //remove arithmatic operation button's background color
+        //         removeBackgroundColor()
+        //     } else if (typeof number == 'string' && number.includes('e') == false) {
+        //         if (number[number.length - 2] == '.') {
+        //             number = number.slice(0, number.length - 2)
+        //         } else {
+        //             number = number.slice(0, number.length - 1)
+        //         }
 
-        } else if (input == '%') {
-            if (display.textContent == 'ERROR') {
-                return
-            } else if (number != '') {
-                number = operate(input, accumulator, number)
-                displayResult(number)
-            } else if (accumulator != undefined) {
-                accumulator = operate(input, accumulator, number)
-                displayResult(accumulator)
-            }
-        } else if (input == '+/-') {
-            if (display.textContent == 'ERROR') {
-                return
-            } else if (number != '') {
-                number = operate(input, accumulator, number)
-                displayResult(number)
-            } else if (accumulator != undefined) {
-                accumulator = operate(input, accumulator, number)
-                displayResult(accumulator)
-            }
-        } else if (input == '.') {
-            if (number.toString().includes('.')) {
-                return
-            } else if (number == '') {
-                number = '0' + '.'
-                flag = true
-            } else {
-                number += input
-            }
-            displayResult(number)
-        }
+        //         displayResult(number)
+        //     }
+
+        // } else if (input == '%') {
+        //     if (display.textContent == 'ERROR') {
+        //         return
+        //     } else if (number != '') {
+        //         number = operate(input, accumulator, number)
+        //         displayResult(number)
+        //     } else if (accumulator != undefined) {
+        //         accumulator = operate(input, accumulator, number)
+        //         displayResult(accumulator)
+        //     }
+        // } else if (input == '+/-') {
+        //     if (display.textContent == 'ERROR') {
+        //         return
+        //     } else if (number != '') {
+        //         number = operate(input, accumulator, number)
+        //         displayResult(number)
+        //     } else if (accumulator != undefined) {
+        //         accumulator = operate(input, accumulator, number)
+        //         displayResult(accumulator)
+        //     }
+        // } else if (input == '.') {
+        //     if (number.toString().includes('.')) {
+        //         return
+        //     } else if (number == '') {
+        //         number = '0' + '.'
+        //         flag = true
+        //     } else {
+        //         number += input
+        //     }
+        //     displayResult(number)
+        // }
     })
 })
 
 window.addEventListener('keydown', event => {
-    if (event.key == 'Backspace') {
+    let btArray = Array.from(numButtons)
+    const entry = (element) => element.textContent == event.key
+
+    if (btArray.some(entry) == true) {
+        input = event.key
+    } else if (event.key == 'Backspace') {
         input = 'Del'
     } else if (event.key == 'Delete') {
         input = 'AC'
-    }else if(event.key=='Enter' || event.key=='='){
-        input='='
-    } 
-    else if(event.key=='Tab'){
+    } else if (event.key == 'Enter') {
         event.preventDefault()
-        input='+/-'
-    }
-    else {
-        input = event.key
+        input = '='
+    } else if (event.key == 'Tab') {
+        event.preventDefault()
+        input = '+/-'
+    } else {
+        input = undefined
     }
 
     console.log(input)
+    if (input != undefined) {
+        presseKeysButtons(event)
+    }
 })
 
 
@@ -200,9 +215,11 @@ function operate(operator, a, b) {
     } else if (operator == '%') {
         if (b != 0) {
             result = setDecimalPlace(b, precision)
+            result = roundDigitToFitDisplay(+result)
             return Number(result)
         } else {
             result = setDecimalPlace(a, precision)
+            result = roundDigitToFitDisplay(+result)
             return Number(result)
         }
     } else if (operator == '+/-') {
@@ -276,6 +293,7 @@ function roundDigitToFitDisplay(result) {
             result = result.replace('.000', '')
         }
     }
+
     return result
 }
 
@@ -288,13 +306,7 @@ function removeBackgroundColor() {
 
 }
 
-function presseKeysButtons(e){
-    if (button.classList.contains('delButton')) {
-        input = 'Del'
-    } else {
-        input = button.textContent
-    }
-
+function presseKeysButtons(e, button) {
     if (input != '+' && input != '-' && input != '*' && input != '/' && input != '=' && input != 'AC' && input != 'Del' && input != '%' && input != '+/-' && input != '.') {
         if (flag == false) {
             number = ''
@@ -302,14 +314,29 @@ function presseKeysButtons(e){
         if (number.length >= 9 || (display.textContent == '0' && input == '0')) {
             return
         }
-        number += button.textContent
+
+        if (e.type == 'click') {
+            number += button.textContent
+        } else if (e.type == 'keydown') {
+            number += input
+        } else {
+            return
+        }
         displayResult(number)
         //remove arithmatic operation button's background color
         removeBackgroundColor()
 
     } else if ((input == '+' || input == '-' || input == '*' || input == '/') && number != '') {
         //add background color to arithmatic operation buttons to indicate it is being selected
-        button.classList.add("color-change")
+        if (e.type == 'click') {
+            button.classList.add("color-change")
+        } else {
+            operationButtons.forEach((bt) => {
+                if (bt.textContent == input) {
+                    bt.classList.add('color-change')
+                }
+            })
+        }
 
         if (accumulator != undefined) {
             accumulator = operate(operant, accumulator, number)
