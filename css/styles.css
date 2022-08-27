@@ -2,34 +2,37 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: 0;
+    border:  none;
+    outline: none;
 }
 
 body {
     height: 100vh;
-    background-color: #222831;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.container {
-    width: 450px;
-    height: 600px;
- 
-    border-radius: 15px 15px 0 0;
-    background-color: #1d2327;
+    background-color: #3D4455;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:38px;
+}
+
+.calculator{
+    width: 450px;
+    padding:5px;
+    border-radius: 15px 15px 5px 5px;
+    background-color: #2C3333;
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
 
 
 }
 
 .displayBar {
     height: 120px;
-    padding: 0 15px;
-    border-radius: 15px 15px 0 0;
+    padding: 18px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom:10px;
     background-color: #1d2327;
     color:white;
     display: flex;
@@ -38,15 +41,17 @@ body {
 }
 
 .display {
-    font-size: 72px;
+    font-size: 76px;
+    letter-spacing: 1px;
     font-family: 'Roboto', sans-serif;
     align-self: flex-end;
 
 }
 
 .buttons {
-    height: 490px;
+
     border-radius: 10px;
+    padding: 0px;
     background-color: #2C3333;
     display: flex;
     flex-direction: column;
@@ -63,20 +68,80 @@ body {
     flex: 1;
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
-    margin:5px;
-    border-radius: 5px;
-    background-color: #595260;
+    color:#57D2CB;
+    margin: 1px;
+    border:solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color:#4A5A72;
+    background-color: #4A5A72;
+}
+
+.numButton:hover{
+   
+    border-style: solid;
+    border-width: 1px;
+    border-color: #698793
     
+}
+
+.numButton:active{
+    background-color: #698793;
+
+}
+
+.keydown-active{
+    background-color: #698793;
+}
+
+.numButton.number{
+    color:white
 }
 
 .dot{
     font-weight: 700;
+    color:white;
 }
 
-.operation{
-    color:#FEC260;
+.operation, .equal{
+    color:#ED7C3F; 
 }
 
 .color-change{
-    background-color:aqua;
+    background-color:#9AC1CA;
+}
+
+
+.InstruContainer{
+    width: 450px;
+    border-radius: 10px;
+    background-color: rgba(44, 51, 51, 0.2);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    font-size:22px;
+    color:white;
+    margin-bottom: 10px;
+}
+
+.instructionBody{
+    line-height: 1.5;
+}
+
+p{
+    color:white;
+    font-size: 16px;
+}
+
+.title, p{
+    font-family: 'Roboto', sans-serif;
+    opacity: 0.4;
+}
+
+strong{
+    color:#ED7C3F
 }

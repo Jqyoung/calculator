@@ -3,18 +3,12 @@ const numButtons = document.querySelectorAll('.numButton')
 const operationButtons = document.querySelectorAll('.operation')
 
 let input
-let prevousInput
 let number = ''
 let accumulator
 let operant = ''
 let flag = true
-let regex = /[^0-9]/g
-let keys = {
-    numberKey: /[0-9]/g,
-    dotKey: '.',
-    plus: '+'
-}
 
+//Perform functions when buttons are clicked by the user
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
         if (button.classList.contains('delButton')) {
@@ -22,113 +16,17 @@ numButtons.forEach((button) => {
         } else {
             input = button.textContent
         }
-
+        //Call function to perform calculation based on user input
         presseKeysButtons(e, button)
-
-        // if (input != '+' && input != '-' && input != '*' && input != '/' && input != '=' && input != 'AC' && input != 'Del' && input != '%' && input != '+/-' && input != '.') {
-        //     if (flag == false) {
-        //         number = ''
-        //     }
-        //     if (number.length >= 9 || (display.textContent == '0' && input == '0')) {
-        //         return
-        //     }
-        //     number += button.textContent
-        //     displayResult(number)
-        //     //remove arithmatic operation button's background color
-        //     removeBackgroundColor()
-
-        // } else if ((input == '+' || input == '-' || input == '*' || input == '/') && number != '') {
-        //     //add background color to arithmatic operation buttons to indicate it is being selected
-        //     button.classList.add("color-change")
-
-        //     if (accumulator != undefined) {
-        //         accumulator = operate(operant, accumulator, number)
-        //         console.log('im calculating')
-        //         displayResult(accumulator)
-
-        //     } else {
-        //         accumulator = number
-        //         console.log('im acc=number')
-        //     }
-        //     operant = input
-        //     number = ''
-        //     flag = true
-
-        // } else if (input == '=' && number != '' && operant != '' && accumulator != undefined) {
-        //     number = operate(operant, accumulator, number)
-        //     // number = number.toString()
-        //     displayResult(number)
-        //     accumulator = undefined
-        //     flag = false
-
-        // } else if (input == 'AC') {
-        //     number = ''
-        //     operant = ''
-        //     accumulator = undefined
-        //     displayResult('0')
-        //     flag = true
-        //     removeBackgroundColor()
-
-        // } else if (input == 'Del') {
-        //     if (number == 'ERROR' || accumulator == 'ERROR') {
-        //         number = ''
-        //         operant = ''
-        //         accumulator = undefined
-        //         displayResult('0')
-        //     } else if (number == '' && operant != '' && operant != '=') {
-        //         operant = ''
-        //         number = accumulator
-        //         accumulator = undefined
-        //         //remove arithmatic operation button's background color
-        //         removeBackgroundColor()
-        //     } else if (typeof number == 'string' && number.includes('e') == false) {
-        //         if (number[number.length - 2] == '.') {
-        //             number = number.slice(0, number.length - 2)
-        //         } else {
-        //             number = number.slice(0, number.length - 1)
-        //         }
-
-        //         displayResult(number)
-        //     }
-
-        // } else if (input == '%') {
-        //     if (display.textContent == 'ERROR') {
-        //         return
-        //     } else if (number != '') {
-        //         number = operate(input, accumulator, number)
-        //         displayResult(number)
-        //     } else if (accumulator != undefined) {
-        //         accumulator = operate(input, accumulator, number)
-        //         displayResult(accumulator)
-        //     }
-        // } else if (input == '+/-') {
-        //     if (display.textContent == 'ERROR') {
-        //         return
-        //     } else if (number != '') {
-        //         number = operate(input, accumulator, number)
-        //         displayResult(number)
-        //     } else if (accumulator != undefined) {
-        //         accumulator = operate(input, accumulator, number)
-        //         displayResult(accumulator)
-        //     }
-        // } else if (input == '.') {
-        //     if (number.toString().includes('.')) {
-        //         return
-        //     } else if (number == '') {
-        //         number = '0' + '.'
-        //         flag = true
-        //     } else {
-        //         number += input
-        //     }
-        //     displayResult(number)
-        // }
     })
 })
 
+//Perform functions when user pressed keys on the keyboard
 window.addEventListener('keydown', event => {
     let btArray = Array.from(numButtons)
     const entry = (element) => element.textContent == event.key
 
+    //Check whether or not the key pressed by user is valid and coorespond to a button on the calculator
     if (btArray.some(entry) == true) {
         input = event.key
     } else if (event.key == 'Backspace') {
@@ -145,13 +43,23 @@ window.addEventListener('keydown', event => {
         input = undefined
     }
 
-    console.log(input)
+    //if user input is valid then call the function to perform calculation
     if (input != undefined) {
+        //add button click effect when the corresponding key is pressed
+        numButtons.forEach((bt) => {
+            if (bt.textContent == input || bt.getAttribute('ID') == input) {
+                bt.classList.add('keydown-active')
+                window.addEventListener('keyup', () => {
+                    bt.classList.remove('keydown-active')
+                })
+            }
+        })
+        //call the function to calculate    
         presseKeysButtons(event)
     }
 })
 
-
+//functions to perform each arithmetic operation
 function add(a, b) {
     return a + b
 }
@@ -172,10 +80,7 @@ function divide(a, b) {
     }
 }
 
-function percent(num) {
-    return num / 100
-}
-
+//function that performs calculation based on the user input
 function operate(operator, a, b) {
     if (a == 'ERROR')
         return 'ERROR'
@@ -186,13 +91,15 @@ function operate(operator, a, b) {
     a = +a
     b = +b
 
+    //determines how many decimal point numbers have and get rid of the decimal points by times 10 to the power
     precision = Math.pow(10, Math.max(decimalLength(a), decimalLength(b)))
-
+    //convert the numbers that will be in the calculation to whole numbers
     a = Math.round(a * precision)
     b = Math.round(b * precision)
 
     if (operator == '+') {
         result = add(a, b) / precision
+        //convert the result to scientific notation if it has more than 9 digits
         result = roundDigitToFitDisplay(result)
         return result
 
@@ -203,7 +110,6 @@ function operate(operator, a, b) {
 
     } else if (operator == '*') {
         result = multiply(a, b) / (precision * precision)
-        console.log(result)
         result = roundDigitToFitDisplay(result)
         return result
 
@@ -216,11 +122,11 @@ function operate(operator, a, b) {
         if (b != 0) {
             result = setDecimalPlace(b, precision)
             result = roundDigitToFitDisplay(+result)
-            return Number(result)
+            return result
         } else {
             result = setDecimalPlace(a, precision)
             result = roundDigitToFitDisplay(+result)
-            return Number(result)
+            return result
         }
     } else if (operator == '+/-') {
         if (b != 0) {
@@ -234,7 +140,7 @@ function operate(operator, a, b) {
     }
 }
 
-
+//function to display the calculated result
 function displayResult(result) {
     if (result == '') {
         display.textContent = '0'
@@ -244,13 +150,12 @@ function displayResult(result) {
 
 }
 
+//function to determine how many decimal place a number has
 function decimalLength(num) {
     let decimal
-    //  console.log(num)
 
     if (num.toString().includes('e-') && num.toString().includes('.')) {
         decimal = num.toString().split('.').join(',').split('e-').join(',').split(',')
-        // console.log(decimal[1].length)
         return decimal[1].length + +decimal[2]
     }
 
@@ -266,6 +171,7 @@ function decimalLength(num) {
         return decimal[1].length
 }
 
+//function used with % operator to round the first part of a scientific notation before 'e' due to javascript's strange default rounding behaviour
 function setDecimalPlace(num, precision) {
     let digit = num.toString().length
     let result = num / (precision * 100)
@@ -285,18 +191,18 @@ function setDecimalPlace(num, precision) {
     return result
 }
 
+//function that turns the result into scientific notation if its longer than 9 digits which won't fit the display
 function roundDigitToFitDisplay(result) {
     if (result.toString().length > 9) {
         result = result.toExponential(3)
         if (result.slice(2, 5) == '000') {
-            console.log('i am rounding')
             result = result.replace('.000', '')
         }
     }
-
     return result
 }
 
+//remove the css background color for arithmetic operators 
 function removeBackgroundColor() {
     operationButtons.forEach((opButton) => {
         if (opButton.classList.contains('color-change')) {
@@ -306,19 +212,25 @@ function removeBackgroundColor() {
 
 }
 
+//function that perform actions based on button or key input by the user
 function presseKeysButtons(e, button) {
     if (input != '+' && input != '-' && input != '*' && input != '/' && input != '=' && input != 'AC' && input != 'Del' && input != '%' && input != '+/-' && input != '.') {
         if (flag == false) {
             number = ''
         }
-        if (number.length >= 9 || (display.textContent == '0' && input == '0')) {
+        //determine if the number entered is longer than the maximum the display can hold
+        if ((number.length >= 9 && number.includes('.') == false) || (display.textContent == '0' && input == '0')) {
+            return
+        } else if (number.includes('.') == true && number.length > 9) {
             return
         }
-
+        //determine if the event is click or keydown
         if (e.type == 'click') {
             number += button.textContent
+            flag = true
         } else if (e.type == 'keydown') {
             number += input
+            flag = true
         } else {
             return
         }
@@ -337,15 +249,12 @@ function presseKeysButtons(e, button) {
                 }
             })
         }
-
+        //operates on two values, the previous entered is saved in accmulator variable and the current entered is in number variable
         if (accumulator != undefined) {
             accumulator = operate(operant, accumulator, number)
-            console.log('im calculating')
             displayResult(accumulator)
-
         } else {
             accumulator = number
-            console.log('im acc=number')
         }
         operant = input
         number = ''
@@ -353,7 +262,6 @@ function presseKeysButtons(e, button) {
 
     } else if (input == '=' && number != '' && operant != '' && accumulator != undefined) {
         number = operate(operant, accumulator, number)
-        // number = number.toString()
         displayResult(number)
         accumulator = undefined
         flag = false
@@ -379,12 +287,11 @@ function presseKeysButtons(e, button) {
             //remove arithmatic operation button's background color
             removeBackgroundColor()
         } else if (typeof number == 'string' && number.includes('e') == false) {
-            if (number[number.length - 2] == '.') {
+            if (number[number.length - 2] == '.' || number[number.length - 2] == '-') {
                 number = number.slice(0, number.length - 2)
             } else {
                 number = number.slice(0, number.length - 1)
             }
-
             displayResult(number)
         }
 
@@ -398,6 +305,7 @@ function presseKeysButtons(e, button) {
             accumulator = operate(input, accumulator, number)
             displayResult(accumulator)
         }
+
     } else if (input == '+/-') {
         if (display.textContent == 'ERROR') {
             return
@@ -408,15 +316,17 @@ function presseKeysButtons(e, button) {
             accumulator = operate(input, accumulator, number)
             displayResult(accumulator)
         }
+
     } else if (input == '.') {
-        if (number.toString().includes('.')) {
+        if ((number.toString().includes('.') && flag != false) || number.toString().length >= 9) {
             return
-        } else if (number == '') {
+        } else if (number == '' || flag == false) {
             number = '0' + '.'
             flag = true
         } else {
             number += input
+            flag = true
         }
         displayResult(number)
     }
-}
+}//end of function

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="calculator">
         <div class='displayBar'>
             <div class="display">0</div>
         </div>
@@ -24,7 +24,7 @@
         <div class="buttons">
             <div class="row row1">
                 <button class="numButton acButton">AC</button>
-                <button class="numButton delButton">&#9654;</button>
+                <button class="numButton delButton" ID="Del">&#9654;</button>
                 <button class="numButton">+/-</button>
                 <button class="numButton">%</button>
 
@@ -55,13 +55,23 @@
             </div>
 
             <div class="row row5">
-                <button class="numButton num0">0</button>
+                <button class="numButton number">0</button>
                 <button class="numButton dot">.</button>
-                <button class="numButton">=</button>
+                <button class="numButton equal">=</button>
                 <button class="numButton operation">+</button>
             </div>
+        </div>
+    </div>
 
-
+    <div class="InstruContainer">
+        <div class="instructionTitle">
+            <h1 class="title">Keyboard Commands</h1>
+        </div>
+        <div class="instructionBody">
+            <p>Use <strong>[ Enter ] key</strong> or <strong>[ = ] key</strong> for equal button</p>
+            <p>Use <strong>[ TAB ] key </strong>for the " +/- " button</p>
+            <p>To <em>delete</em> the last character use <strong>[ Backspace ] key</strong></p>
+            <p>To <em>reset</em> the calculator use <strong>[ DEL ] key</strong></p>          
         </div>
     </div>
 </body>
