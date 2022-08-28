@@ -2,7 +2,7 @@
 
 From [The Odin Project](https://www.theodinproject.com/lessons/foundations-calculator), using HTML, CSS and Vanilla JS to create a basic calculator.
 
-:link:[**Live preview**](https://jqyoung.github.io/calculator/) 
+:link: [**Live preview**](https://jqyoung.github.io/calculator/) 
 
 ## What I learned
 
