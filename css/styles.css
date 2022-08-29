@@ -2,25 +2,34 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border:  none;
+    border: none;
     outline: none;
 }
+
+
 
 body {
     min-height: 100vh;
     padding-top: 75px;
-    padding-bottom: 10px;
     background-color: #404454;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:25px;
 }
 
-.calculator{
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.calculator {
     width: 450px;
-    padding:5px;
+    padding: 5px;
     border-radius: 15px 15px 5px 5px;
     background-color: #2C3333;
     display: flex;
@@ -34,9 +43,9 @@ body {
     height: 120px;
     padding: 18px;
     border-radius: 10px 10px 10px 10px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     background-color: #1d2327;
-    color:white;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,58 +72,58 @@ body {
 .row {
     height: 96px;
     display: flex;
-    
+
 }
 
 .numButton {
     flex: 1;
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
-    color:#57D2CB;
+    color: #57D2CB;
     margin: 1px;
-    border:solid;
+    border: solid;
     border-width: 1px;
     border-radius: 3px;
-    border-color:#4A5A72;
+    border-color: #4A5A72;
     background-color: #4A5A72;
 }
 
-.numButton:hover{
-   
+.numButton:hover {
+
     border-style: solid;
     border-width: 1px;
     border-color: #698793
-    
 }
 
-.numButton:active{
+.numButton:active {
     background-color: #698793;
 
 }
 
-.keydown-active{
+.keydown-active {
     background-color: #698793;
 }
 
-.numButton.number{
-    color:white
+.numButton.number {
+    color: white
 }
 
-.dot{
+.dot {
     font-weight: 700;
-    color:white;
+    color: white;
 }
 
-.operation, .equal{
-    color:#ED7C3F; 
+.operation,
+.equal {
+    color: #ED7C3F;
 }
 
-.color-change{
-    background-color:#9AC1CA;
+.color-change {
+    background-color: #9AC1CA;
 }
 
 
-.InstruContainer{
+.InstruContainer {
     width: 450px;
     border-radius: 10px;
     background-color: rgba(44, 51, 51, 0.2);
@@ -125,49 +134,89 @@ body {
     align-items: center;
 }
 
-.title{
-    font-size:22px;
-    color:white;
+.title {
+    font-size: 22px;
+    color: white;
     margin-bottom: 10px;
 }
 
-.instructionBody{
+.instructionBody {
     line-height: 1.5;
 }
 
-p{
-    color:white;
+p {
+    color: white;
     font-size: 16px;
 }
 
-.title, p{
+.title,
+p {
     font-family: 'Roboto', sans-serif;
     opacity: 0.4;
 }
 
-strong{
-    color:#ED7C3F
+strong {
+    color: #ED7C3F
 }
 
-.footer{
+.footer {
     position: relative;
-    display:flex;
+    display: flex;
     align-items: center;
-    gap:12px;
+    gap: 12px;
+    margin: 15px 0 15px 0
 }
 
-.icon{
-    position:absolute;
-    bottom:0;
+.icon {
+    position: absolute;
+    bottom: 0;
     width: 24px;
     opacity: 0.8;
 }
 
-.icon:hover{
+.icon:hover {
     transform: scale(1.2);
     filter: sepia(1) hue-rotate(150deg) saturate(15);
 }
 
-.footnote{
+.footnote {
     font-size: 16px;
+}
+
+
+
+/*Responsive design portion*/
+@media (min-width:376px) and (max-width:450px) {
+    .container {
+        transform: scale(0.8);
+    }
+    
+    body{
+        padding-top:0;
+        height:100vh;
+    }
+    
+}
+
+@media only screen and (max-width: 375px){
+    .container {
+        transform: scale(0.75);
+        margin-top:-80px;
+    }
+    body{
+        padding-top:0;
+        height:100vh;
+    }
+
+    .footer{
+        margin-top:-80px;
+    }
+
+    .footnote{
+        font-size:14px;
+    }
+    .icon{
+        width: 20px;
+    }
+
 }
