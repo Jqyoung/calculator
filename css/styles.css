@@ -186,30 +186,34 @@ strong {
 
 
 /*Responsive design portion*/
-@media (min-width:376px) and (max-width:450px) {
+@media (min-width:375px) and (max-width:450px) {
     .container {
         transform: scale(0.8);
+        margin-top:-70px;
     }
     
     body{
         padding-top:0;
-        height:100vh;
+        min-height: 100vh;
     }
-    
+    .footer{
+        margin-top:-60px;
+        margin-bottom: 100px;
+    }
 }
 
 @media only screen and (max-width: 375px){
     .container {
         transform: scale(0.75);
-        margin-top:-80px;
+        margin-top:-90px;
     }
     body{
         padding-top:0;
-        height:100vh;
+        min-height: 100vh;
     }
 
     .footer{
-        margin-top:-80px;
+        margin-top:-90px;
     }
 
     .footnote{
